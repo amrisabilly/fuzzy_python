@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pendukung Keputusan - Produksi Minyak Goreng</title>
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        robotoMono: ['"Roboto Mono"', 'monospace'],
+                        poppins: ['Poppins', 'sans-serif'], 
+                    },
+                    backgroundImage: {
+                        'custom-pattern': "url('{{ url_for('static', filename='image/gambar6.jpg') }}')",
+                    },
+                },
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="flex min-h-screen bg-[#243A11] font-robotoMono">
+    <div class="bg-custom-pattern bg-cover bg-center w-[70em] relative">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-8">
+            <h1 class="font-bold text-4xl text-yellow-400 text-center">SISTEM PENDUKUNG KEPUTUSAN</h1>
+            <h3 class="font-bold text-4xl text-center text-white mb-6">Produksi Minyak Goreng</h3>
+            <hr class="border-t-2 border-yellow-400">
+        </div>
+    </div>
+    
+    <div class="py-20 px-16 flex flex-col gap-10">
+        <h1 class="font-bold text-6xl text-yellow-400">KIKY<span class="italic text-white">YO</span></h1>
+        <form method="POST" class="flex flex-col text-white gap-4">
+            <label for="permintaan">Permintaan:</label>
+            <input type="number" id="permintaan" name="permintaan" min="0" max="7000" 
+                   value="{{ permintaan if permintaan is not none else '' }}" required class="text-black h-8 rounded-md px-5">
+        
+            <label for="persediaan">Persediaan:</label>
+            <input type="number" id="persediaan" name="persediaan" min="0" max="570" 
+                   value="{{ persediaan if persediaan is not none else '' }}" required class="text-black h-8 rounded-md px-5">
+        
+            <button type="submit" class="bg-yellow-400 text-black h-8 rounded-md hover:scale-105 transition-transform duration-300">Hitung</button>
+        </form>
+        
+        {% if result is not none %}
+        <div class="bg-yellow-400 p-5 w-full rounded-md">
+            <h2 class="font-bold text-black">Hasil Produksi: {{ hasil }}</h2>
+            <p class="font-semibold text-black">Status: {{ status }}</p>
+            <form method="GET">
+                <button type="submit" class="mt-4 bg-white text-black h-8 rounded-md px-4 hover:bg-gray-200">Hitung Ulang</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
